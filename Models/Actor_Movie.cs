@@ -8,12 +8,20 @@ namespace eTickets.Models
 {
     public class Actor_Movie
     {
-                                         //El EF detecta automáticamente que es una FK por el nombre de la propiedad
-        public int MovieId { get; set; } //FK para el modelo Movie
-        public Movie Movie { get; set; }
+        /** 
+         * Esta es una tabla pivote o join table 
+         * 
+         * El EF detecta automáticamente la FK, al tener una propiedad Movie y otra propiedad MovieId
+         * reconoce que MovieId es la FK que referencia a Movie.
+         * 
+         * Para definir la FK de manera manual puedo utilizar la etiqueta [ForeignKey("ActorId")] 
+         */
 
-        public int ActorId { get; set; } //Fk que pertenece a Actor
-        [ForeignKey("ActorId")]          //Defino manualmente cual es la FK
+        public int MovieId { get; set; } //FK que referencia a Movie
+        public Movie Movie { get; set; } //Actor_Movie solo tiene un Movie, 1:N
+
+        public int ActorId { get; set; } //Fk que referencia a Actor
+        [ForeignKey("ActorId")]          
         public Actor Actor { get; set; }
     }
 }

@@ -23,13 +23,14 @@ namespace eTickets.Models
         //Relaciones
         public List<Actor_Movie> Actors_Movies { get; set; } //1:N -> un Movie tiene muchos Actor_Movie
 
-        //Cinema
-        public int CinemaId { get; set; }  //Esta es la FK que pertenece a Cinema
+        //Cinema <-> Movie
+        //  1     :    N
+        public int CinemaId { get; set; }  //FK que referencia a Cinema
         [ForeignKey("CinemaId")]
         public Cinema Cinema { get; set; }
 
         //Producer
-        public int ProducerId { get; set; } //Esta es la FK que pertenece a Producer
+        public int ProducerId { get; set; } //FK que referencia a Producer
         public Producer Producer { get; set; }
 
     }

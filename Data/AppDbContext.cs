@@ -15,7 +15,7 @@ namespace eTickets.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Defino cuales son las claves para cada entidad (modelo)
+            //Defino cuales son las PK para Actor_Movie
             modelBuilder.Entity<Actor_Movie>().HasKey(am => new
             {
                 //Estas son las FK de sus respectibas tablas
