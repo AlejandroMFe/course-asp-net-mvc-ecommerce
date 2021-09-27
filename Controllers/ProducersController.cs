@@ -20,7 +20,10 @@ namespace eTickets.Controllers
         public async Task<IActionResult> Index()
         {
             var data = await _context.Producers.ToListAsync();
-            return View();
+            return View(data);
+
+            //si deseo retorna otra vista, lo puedo hacer así
+            //return View("OtroIndex", data);
         }
     }
 }
