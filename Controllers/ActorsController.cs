@@ -1,5 +1,6 @@
 ﻿using eTickets.Data;
 using eTickets.Data.Services;
+using eTickets.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,16 +12,16 @@ namespace eTickets.Controllers
 {
     public class ActorsController : Controller
     {
-        private readonly IActorService service;
+        private readonly IActorService _service;
 
         public ActorsController(IActorService service)
         {
-            this.service = service;
+            _service = service;
         }
 
         public async Task<IActionResult> Index()
         {
-            var data = await service.GetAll();
+            var data = await _service.GetAll();
             return View(data);
         }
 
@@ -28,6 +29,21 @@ namespace eTickets.Controllers
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("FullName,Bio,ProfilePictureURL")]Actor actor)
+        {
+            if (!ModelState.IsValid)
+                return View(actor); 
+                /** 
+                 * Si hay errores en la validación de datos
+                 * retorna la misma vista con los mensajes de error
+                 * del ModelState
+                 */
+
+            _service.Add(actor);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
