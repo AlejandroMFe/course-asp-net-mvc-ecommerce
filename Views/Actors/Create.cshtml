@@ -15,7 +15,7 @@
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group text-center">
-                        <img id="ProfilePicturePreview" />
+                        <img id="ProfilePicturePreview" class="rounded" style="max-width: 150px" />
                     </div>
                     <div class="form-group">
                         <label asp-for="ProfilePictureURL" class="control-label"></label>
@@ -46,29 +46,36 @@
 @section Scripts{
     <script>
         //On my way!! :D
-        /**
-        document.onreadystatechange = function () {
-            if (document.readyState === "complete") {
-                var pictureUrl = document.getElementById("ProfilePictureURL");
 
-                pictureUrl.addEventListener("change", function () {
-                    var img = document.getElementById("ProfilePicturePreview");
-                    img.src = pictureUrl.value;
-                });
+        //Cuando el input pierde el foco. Evento change
+        var pictureUrl = document.getElementById("ProfilePictureURL");
+        var asignarSrcToImg = function () {
+
+            var img = document.getElementById("ProfilePicturePreview");
+            img.src = pictureUrl.value;
+        };
+
+        pictureUrl.addEventListener("change", function () {
+            asignarSrcToImg();            
+        });
+
+        //Cuando el documento termina de cargar
+        document.onreadystatechange = function () {
+
+            if (document.readyState === "complete") {
+                asignarSrcToImg();              
             };
         };
-        */
 
+       //**************************************************************************
+       //$(document).ready(function () {
+       //    var output = document.getElementById('ProfilePicturePreview');
+       //    output.src = $("#ProfilePictureURL").val();
+       //})
+       //$("#ProfilePictureURL").on("change", function () {
+       //    var output = document.getElementById('ProfilePicturePreview');
+       //    output.src = $(this).val();
+       //})
 
-        $(document).ready(function () {
-            var output = document.getElementById('ProfilePicturePreview');
-            output.src = $("#ProfilePictureURL").val();
-        })
-        
-        $("#ProfilePictureURL").on("change", function () {
-            var output = document.getElementById('ProfilePicturePreview');
-            output.src = $(this).val();
-        })
-        
     </script>
 }
