@@ -21,14 +21,23 @@ namespace eTickets.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var data = await _service.GetAll();
+            var data = await _service.GetAllAsync();
             return View(data);
         }
 
-        //Get: Actor/Create
+        //Get: Actors/Create
         public IActionResult Create()
         {
             return View();
+        }
+
+        //Get: Actors/Details/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var actorDetails = await _service.GetByIdAsync(id);
+            
+            if (actorDetails is null) return View("Empty");
+            return View(actorDetails);
         }
 
         [HttpPost]
@@ -42,7 +51,7 @@ namespace eTickets.Controllers
                  * del ModelState
                  */
 
-            _service.Add(actor);
+            await _service.AddAsync(actor);
             return RedirectToAction(nameof(Index));
         }
     }
