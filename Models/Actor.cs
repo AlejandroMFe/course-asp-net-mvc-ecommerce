@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eTickets.Data.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace eTickets.Models
 {
-    public class Actor
+    public class Actor : IEntityBase
     {
         [Key]                       //Esta etiquieta identifica cual va a ser la clave de la clase en la base de datos.
         public int Id { get; set; } //El entity framework (EF) automáticamente toma la propiedad Id de la clase como clave primaria.
