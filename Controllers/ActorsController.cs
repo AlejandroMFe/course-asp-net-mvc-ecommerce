@@ -1,11 +1,6 @@
-﻿using eTickets.Data;
-using eTickets.Data.Services;
+﻿using eTickets.Data.Services;
 using eTickets.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace eTickets.Controllers
@@ -83,6 +78,9 @@ namespace eTickets.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirm(int id)
         {
+            var actorDetails = await _service.GetByIdAsync(id);
+            if (actorDetails is null) return View("NotFound");
+
             await _service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
